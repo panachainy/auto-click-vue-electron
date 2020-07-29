@@ -27,8 +27,37 @@ jobs:
             - ~/repo
           key: v1-build-{{ .Branch }}-{{ .Revision }}
 
+  electron-build:
+    docker:
+      - image: "circleci/node:10"
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: "yarn install"
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      # - run: "yarn test"
+
+      - run:
+          name: "Build Project"
+          command: |
+            unset CI
+            yarn electron:build
+      - save_cache:
+          paths:
+            - ~/repo
+          key: v1-build-{{ .Branch }}-{{ .Revision }}
+
+
 workflows:
   version: 2
   workflow:
     jobs:
       - build
+      - electron-build
