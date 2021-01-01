@@ -1,3 +1,4 @@
+2
 # auto-click-vue-electron
 
 ## Project setup
@@ -27,3 +28,6 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+try change
