@@ -1,3 +1,4 @@
+2
 # auto-click-vue-electron
 
 ## Project setup
